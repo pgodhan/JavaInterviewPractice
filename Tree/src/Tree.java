@@ -13,18 +13,18 @@ public class Tree extends Node{
 	{
 		if(root == null)
 		{
-	    root = ob;
-		ob.parent = null;
-		this.root =ob;
+			root = ob;
+			ob.parent = null;
+			this.root =ob;
 		}
 		else
 		{
 			if(root.left == null && ob.item < root.item)
 			{	ob.parent = root;
-				root.left = ob; }
+			root.left = ob; }
 			else if(root.right == null && ob.item > root.item)
 			{	 ob.parent = root;
-				 root.right =ob; }       		
+			root.right =ob; }       		
 			else
 			{
 				if(ob.item < root.item)
@@ -54,20 +54,20 @@ public class Tree extends Node{
 		postorder(root.right);
 		System.out.println(" "+root.item);
 	}
-	
+
 	void inorder(Node root)
 	{
 		if(root == null)
 			return;
 		inorder(root.left);
 		if(root.parent != null)
-		System.out.println(" "+root.item + "parent =" + root.parent.item);
+			System.out.println(" "+root.item + "parent =" + root.parent.item);
 		else
 			System.out.println(" "+root.item );
 		inorder(root.right);
-		
+
 	}
-	
+
 	//Delete a tree in java
 	void delete(Node root)
 	{
@@ -80,34 +80,34 @@ public class Tree extends Node{
 			this.root=null;
 		root=null;
 	}
-	
+
 	int height(Node root,int height)
 	{
 		if(root == null)
 			return height;
 		else
 			return 1 + Math.max(height(root.left,height),height(root.right,height));
-		
+
 	}
-	
+
 	//FIND COMMON ANCESTOR
 	Node findLowestCommonAncestor(Node root,Node node1, Node node2)
 	{  //GO TO THE LEFT
 		if(node1.item > root.item && node2.item > root.item)
-			  return findLowestCommonAncestor(root.right,node1,node2);
+			return findLowestCommonAncestor(root.right,node1,node2);
 		else //GO TO THE RIGHT
 			if(node1.item < root.item && node2.item < root.item)
-			   return findLowestCommonAncestor(root.left,node1,node2);
+				return findLowestCommonAncestor(root.left,node1,node2);
 			else //ELSE RETURN
 				return root;
 	}
-	
+
 	//FIND INORDER SUCCESSOR
 	void findInorderSuccessor(Node root)
 	{
 		Node temp,copy;
 		copy=root;
-		
+
 		if(root.right != null)
 		{
 			root=root.right;
@@ -116,109 +116,75 @@ public class Tree extends Node{
 		}
 		else
 		{
-			
+
 			if(root.parent != null)
-				 			{ 
-				 				while(root.parent != root.parent.parent.left || root.parent == null)
-				 				{
-				 					root=root.parent;
-				 				}
-				 				root = root.parent.parent;
-				 				System.out.println("Inorder successor: "+ root.item);
-				 			}
-				 			else
-				 		  System.out.println("Inorder successor "+ root.item);
-		
-		
-    	}	
+			{ 
+				while(root.parent != root.parent.parent.left || root.parent == null)
+				{
+					root=root.parent;
+				}
+				root = root.parent.parent;
+				System.out.println("Inorder successor: "+ root.item);
+			}
+			else
+				System.out.println("Inorder successor "+ root.item);
+
+
+		}	
 	}
-	
+
 	//Find the left most child 
 	Node leftmostchild(Node root)
 	{
-	 if(root.left != null)
-		 return leftmostchild(root.left);
-		
+		if(root.left != null)
+			return leftmostchild(root.left);
+
 		return root;
 	}
-	
+
+	//To construct imbalanced binary tree
 	void maxHeap(Node node1,Node root)
-	{ int item;Node temp;
-		//For the first node
-		if(this.root == null)
-		{   root = node1;
-			root.left=null;
-			root.right = null;
-			root.parent=null;
-			this.root = node1;
-		}
+	{ int item;
+	
+	//For the first node
+	if(this.root == null)
+	{ 
+	root = node1;
+	root.left=null;
+	root.right = null;
+	root.parent=null;
+	this.root = node1;
+	}
+	else
+	{
+
+		if(node1.item <= root.item)
+		{  
+
+			if(root.left == null )
+			{root.left = node1;node1.parent=root;}
+			else if(root.right == null)
+			{root.right = node1;node1.parent=root;}
+			else if(root.left.left == null || root.left.right == null)
+				maxHeap(node1,root.left);
+			else if (root.right.right==null || root.right.left == null)
+				maxHeap(node1,root.right);
+			else //TO KEEP MOVING FORWARD
+				maxHeap(node1,root.left);
+
+		}	
 		else
 		{
-			 
-			if(node1.item <= root.item)
-			{  
-				System.out.println("Node item "+node1.item+" Root item :" + root.item);
-				if(root.left == null )
-				 {root.left = node1;node1.parent=root;}
-				else if(root.right == null)
-					{root.right = node1;node1.parent=root;}
-				else if(root.left.left == null || root.left.right == null)
-				maxHeap(node1,root.left);
-				else if (root.right.right==null || root.right.left == null)
-					maxHeap(node1,root.right);
-				else 
-					maxHeap(node1,root.left);
-		
-			}	
-			else
-			{
-				 item = root.item;
-				 root.item = node1.item;
-				 node1.item=item;
-				
-				 maxHeap(node1,root);
-				
-			}
+			item = root.item;
+			root.item = node1.item;
+			node1.item=item;
+			maxHeap(node1,root);
+
 		}
 	}
-	//Construct a max heap
-	void maxheap(Node node1)
-	{    int item;
-	     Node temp;
-		//For first node
-		if(this.root == null)
-		{	this.root.left = null;
-		    this.root.right = null;
-		    this.root.parent = null;
-			this.root = node1;
-		}
-		else
-		{
-			if(node1.item <= this.root.item)
-			{  
-				if(this.root.left == null)
-				  {this.root.left = node1;
-				  node1.parent = this.root;}
-		    	else if(this.root.right == null)
-			      {this.root.right =node1;
-			       node1.parent= this.root;
-			      }
-		    	else {
-		    		root = root.left;
-		    		maxheap(node1);
-		    	}
-			} else
-			{    item = this.root.item;
-				 this.root.item = node1.item;
-				 node1.item=item;
-				 maxheap(node1);
-				 
-			}
-			
-		}
-			
 	}
 	
+
 	public static void main(String args[])
 	{
 		Node ob= new Node (60);
@@ -261,7 +227,7 @@ public class Tree extends Node{
 		obj.delete(obj.root);
 		System.out.println("\nTree root:"+obj.root);
 		System.out.println("===========================================================");
-		
+
 		Tree testTree=new Tree();
 		Node t1= new Node(50);
 		Node t2=new Node(10);
@@ -304,7 +270,7 @@ public class Tree extends Node{
 }
 
 /*  
- 
+
  *                              60
  *					50              		100
  *			40		   55                90      110
