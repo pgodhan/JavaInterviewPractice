@@ -1,0 +1,20 @@
+LINKED LIST:
+
+1.Create a linked list
+2.Delete a linked list
+3.Reverse a linked list
+4.Merge two sorted linked list
+5.Delete a single node in a list
+6.Rotate a Linked List
+7.Union and intersection of two linked list
+8.Sorted linked list to balanced binary search tree
+9.detect a loop in a linked list
+10.Remove a loop in the linked list
+11.Reverse a Linked List in groups of given size
+12.Merge Sort for Linked Lists
+13.Identical Linked Lists
+14.Remove duplicates from an unsorted linked list
+15.Write a function to get the intersection point of two Linked Lists.
+16.Nth node from the end of a Linked List
+17.Write a function that counts the number of times a given int occurs in a Linked List
+18.Write a C function to print the middle of a given linked list
