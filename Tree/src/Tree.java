@@ -101,6 +101,8 @@ public class Tree extends Node{
 			else //ELSE RETURN
 				return root;
 	}
+	
+	//FIND INORDER SUCCESSOR
 	void findInorderSuccessor(Node root)
 	{
 		Node temp,copy;
@@ -140,6 +142,82 @@ public class Tree extends Node{
 		return root;
 	}
 	
+	void maxHeap(Node node1,Node root)
+	{ int item;Node temp;
+		//For the first node
+		if(this.root == null)
+		{   root = node1;
+			root.left=null;
+			root.right = null;
+			root.parent=null;
+			this.root = node1;
+		}
+		else
+		{
+			 
+			if(node1.item <= root.item)
+			{  
+				System.out.println("Node item "+node1.item+" Root item :" + root.item);
+				if(root.left == null )
+				 {root.left = node1;node1.parent=root;}
+				else if(root.right == null)
+					{root.right = node1;node1.parent=root;}
+				else if(root.left.left == null || root.left.right == null)
+				maxHeap(node1,root.left);
+				else if (root.right.right==null || root.right.left == null)
+					maxHeap(node1,root.right);
+				else 
+					maxHeap(node1,root.left);
+		
+			}	
+			else
+			{
+				 item = root.item;
+				 root.item = node1.item;
+				 node1.item=item;
+				
+				 maxHeap(node1,root);
+				
+			}
+		}
+	}
+	//Construct a max heap
+	void maxheap(Node node1)
+	{    int item;
+	     Node temp;
+		//For first node
+		if(this.root == null)
+		{	this.root.left = null;
+		    this.root.right = null;
+		    this.root.parent = null;
+			this.root = node1;
+		}
+		else
+		{
+			if(node1.item <= this.root.item)
+			{  
+				if(this.root.left == null)
+				  {this.root.left = node1;
+				  node1.parent = this.root;}
+		    	else if(this.root.right == null)
+			      {this.root.right =node1;
+			       node1.parent= this.root;
+			      }
+		    	else {
+		    		root = root.left;
+		    		maxheap(node1);
+		    	}
+			} else
+			{    item = this.root.item;
+				 this.root.item = node1.item;
+				 node1.item=item;
+				 maxheap(node1);
+				 
+			}
+			
+		}
+			
+	}
 	
 	public static void main(String args[])
 	{
@@ -182,7 +260,43 @@ public class Tree extends Node{
 		System.out.println("ANCESTOR = "+ temp.item);
 		obj.delete(obj.root);
 		System.out.println("\nTree root:"+obj.root);
+		System.out.println("===========================================================");
 		
+		Tree testTree=new Tree();
+		Node t1= new Node(50);
+		Node t2=new Node(10);
+		Node t3=new Node(60);
+		Node t4=new Node(80);
+		Node t5=new Node(5);
+		Node t6= new Node(9);
+		Node t7=new Node(90);
+		Node t8 = new Node(55);
+		Node t9=new Node(54);
+		Node t10 = new Node(34);
+		Node t11=new Node(4);
+		Node t12 = new Node(30);
+		Node t13=new Node(45);
+		Node t14 = new Node(33);
+		Node t15=new Node(22);
+		Node t16 = new Node(99);
+		testTree.maxHeap(t1, testTree.root);
+		testTree.maxHeap(t2, testTree.root);
+		testTree.maxHeap(t3, testTree.root);
+		testTree.maxHeap(t4, testTree.root);
+		testTree.maxHeap(t5, testTree.root);
+		testTree.maxHeap(t6, testTree.root);
+		testTree.maxHeap(t7, testTree.root);
+		testTree.maxHeap(t8, testTree.root);
+		testTree.maxHeap(t9, testTree.root);
+		testTree.maxHeap(t10, testTree.root);
+		testTree.maxHeap(t11, testTree.root);
+		testTree.maxHeap(t12, testTree.root);
+		testTree.maxHeap(t13, testTree.root);
+		testTree.maxHeap(t14, testTree.root);
+		testTree.maxHeap(t15, testTree.root);
+		testTree.maxHeap(t16, testTree.root);
+		//NOT A BALANCED MAX HEAP
+		testTree.inorder(testTree.root);
 		//Displaying root
 
 	}
