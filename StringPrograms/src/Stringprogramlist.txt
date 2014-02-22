@@ -1,0 +1,16 @@
+1.Reverse a string
+2.Find duplicates in a string
+3.Find adjacent duplicates in a string
+4.Anagram
+5.Palindrome
+6.Find the first non-repeating character from a stream of characters
+7.Longest Common Substring using recursion
+8.LCS using dynamic approach
+9.ATOI
+10.Count words in a given string
+11.Reverse words in a given sentence
+12.Permutation of a string
+13.A Program to check if strings are rotations of each other or not
+14.Remove characters from the first string which are present in the second string
+15.Remove all duplicates from the input string.
+16.Return maximum occurring character in the input string
