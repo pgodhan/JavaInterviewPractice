@@ -142,7 +142,7 @@ public class Tree extends Node{
 		return root;
 	}
 
-	//To construct imbalanced binary tree
+	//To construct imbalanced binary heap tree
 	void maxHeap(Node node1,Node root)
 	{ int item;
 	
@@ -184,7 +184,48 @@ public class Tree extends Node{
 	}
 	}
 	
+	//To construct imbalanced min Heap tree
+		void minHeap(Node node1,Node root)
+		{ int item;
+		
+		//For the first node
+		if(this.root == null)
+		{ 
+		root = node1;
+		root.left=null;
+		root.right = null;
+		root.parent=null;
+		this.root = node1;
+		}
+		else
+		{
 
+			if(node1.item >= root.item)
+			{  
+
+				if(root.left == null )
+				{root.left = node1;node1.parent=root;}
+				else if(root.right == null)
+				{root.right = node1;node1.parent=root;}
+				else if(root.left.left == null || root.left.right == null)
+					minHeap(node1,root.left);
+				else if (root.right.right==null || root.right.left == null)
+					minHeap(node1,root.right);
+				else //TO KEEP MOVING FORWARD
+					minHeap(node1,root.left);
+
+			}	
+			else
+			{
+				item = root.item;
+				root.item = node1.item;
+				node1.item=item;
+				minHeap(node1,root);
+
+			}
+		}
+		}
+		
 	public static void main(String args[])
 	{
 		Node ob= new Node (60);
@@ -245,7 +286,7 @@ public class Tree extends Node{
 		Node t14 = new Node(33);
 		Node t15=new Node(22);
 		Node t16 = new Node(99);
-		testTree.maxHeap(t1, testTree.root);
+	/*	testTree.maxHeap(t1, testTree.root);
 		testTree.maxHeap(t2, testTree.root);
 		testTree.maxHeap(t3, testTree.root);
 		testTree.maxHeap(t4, testTree.root);
@@ -260,8 +301,26 @@ public class Tree extends Node{
 		testTree.maxHeap(t13, testTree.root);
 		testTree.maxHeap(t14, testTree.root);
 		testTree.maxHeap(t15, testTree.root);
-		testTree.maxHeap(t16, testTree.root);
+		testTree.maxHeap(t16, testTree.root);*/
 		//NOT A BALANCED MAX HEAP
+		//testTree.inorder(testTree.root);
+		testTree.root=null;
+		testTree.minHeap(t1, testTree.root);
+		testTree.minHeap(t2, testTree.root);
+		testTree.minHeap(t3, testTree.root);
+		testTree.minHeap(t4, testTree.root);
+		testTree.minHeap(t5, testTree.root);
+		testTree.minHeap(t6, testTree.root);
+		testTree.minHeap(t7, testTree.root);
+		testTree.minHeap(t8, testTree.root);
+		testTree.minHeap(t9, testTree.root);
+		testTree.minHeap(t10, testTree.root);
+		testTree.minHeap(t11, testTree.root);
+		testTree.minHeap(t12, testTree.root);
+		testTree.minHeap(t13, testTree.root);
+		testTree.minHeap(t14, testTree.root);
+		testTree.minHeap(t15, testTree.root);
+		testTree.minHeap(t16, testTree.root);
 		testTree.inorder(testTree.root);
 		//Displaying root
 
