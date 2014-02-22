@@ -8,6 +8,8 @@ public class Tree extends Node{
 		this.root=null;
 	}
 
+	//Insert node in a tree
+	
 	void insertTree(Node root,Node ob)
 	{
 		if(root == null)
@@ -34,6 +36,7 @@ public class Tree extends Node{
 
 	} //End of insert tree
 
+	//Recursive traversals
 	void preorder(Node root)
 	{
 		if(root == null)
@@ -47,8 +50,8 @@ public class Tree extends Node{
 	{
 		if(root == null)
 			return;
-		preorder(root.left);
-		preorder(root.right);
+		postorder(root.left);
+		postorder(root.right);
 		System.out.println(" "+root.item);
 	}
 	
@@ -56,10 +59,23 @@ public class Tree extends Node{
 	{
 		if(root == null)
 			return;
-		preorder(root.left);
+		inorder(root.left);
 		System.out.println(" "+root.item);
-		preorder(root.right);
+		inorder(root.right);
 		
+	}
+	
+	//Delete a tree in java
+	void delete(Node root)
+	{
+		if(root == null)
+			return;
+		delete(root.left);
+		delete(root.right);
+		System.out.println("Deleted item: "+root.item);
+		if(root.item == this.root.item)
+			this.root=null;
+		root=null;
 	}
 	
 	public static void main(String args[])
@@ -79,8 +95,8 @@ public class Tree extends Node{
 		obj.postorder(obj.root);
 		System.out.println("In order Traversal :");
 		obj.inorder(obj.root);
-		
-	
+		obj.delete(obj.root);
+		System.out.println("Tree root:"+obj.root);
 
 	}
 
