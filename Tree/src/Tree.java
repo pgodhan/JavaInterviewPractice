@@ -97,6 +97,7 @@ public class Tree extends Node{
 		obj.inorder(obj.root);
 		obj.delete(obj.root);
 		System.out.println("Tree root:"+obj.root);
+		//Displaying root
 
 	}
 
