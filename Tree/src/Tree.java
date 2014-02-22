@@ -90,6 +90,17 @@ public class Tree extends Node{
 		
 	}
 	
+	//FIND COMMON ANCESTOR
+	Node findLowestCommonAncestor(Node root,Node node1, Node node2)
+	{  //GO TO THE LEFT
+		if(node1.item > root.item && node2.item > root.item)
+			  return findLowestCommonAncestor(root.right,node1,node2);
+		else //GO TO THE RIGHT
+			if(node1.item < root.item && node2.item < root.item)
+			   return findLowestCommonAncestor(root.left,node1,node2);
+			else //ELSE RETURN
+				return root;
+	}
 	void findInorderSuccessor(Node root)
 	{
 		Node temp,copy;
@@ -103,19 +114,21 @@ public class Tree extends Node{
 		}
 		else
 		{
+			
 			if(root.parent != null)
-			{ 
-				while(root.parent != root.parent.parent.left || root.parent== null)
-				{
-					root=root.parent;
-				}
-				root = root.parent.parent;
-				System.out.println("Inorder successor: "+ root.item);
-			}
-			else
-			  System.out.println("Inorder successor "+ root.item);
-		}
+				 			{ 
+				 				while(root.parent != root.parent.parent.left || root.parent == null)
+				 				{
+				 					root=root.parent;
+				 				}
+				 				root = root.parent.parent;
+				 				System.out.println("Inorder successor: "+ root.item);
+				 			}
+				 			else
+				 		  System.out.println("Inorder successor "+ root.item);
 		
+		
+    	}	
 	}
 	
 	//Find the left most child 
@@ -142,6 +155,7 @@ public class Tree extends Node{
 		Node ob9=new Node(55);
 		Node ob10=new Node(40);
 		Node ob11 =new Node(45);
+		Node ob12=new Node(56);
 		Tree obj=new Tree();
 		obj.insertTree(obj.root, ob);
 		obj.insertTree(obj.root, ob1);
@@ -155,6 +169,7 @@ public class Tree extends Node{
 		obj.insertTree(obj.root, ob9);
 		obj.insertTree(obj.root, ob10);
 		obj.insertTree(obj.root, ob11);
+		obj.insertTree(obj.root, ob12);
 		System.out.println("Pre order Traversal :");
 		obj.preorder(obj.root);
 		System.out.println("Post order Traversal :");
@@ -162,7 +177,9 @@ public class Tree extends Node{
 		System.out.println("In order Traversal :");
 		obj.inorder(obj.root);
 		System.out.println("Height of tree: "+ obj.height(obj.root,0));
-		obj.findInorderSuccessor(ob9);
+		obj.findInorderSuccessor(ob12);
+		Node temp = obj.findLowestCommonAncestor(obj.root, ob10,ob12 );
+		System.out.println("ANCESTOR = "+ temp.item);
 		obj.delete(obj.root);
 		System.out.println("\nTree root:"+obj.root);
 		
