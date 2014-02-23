@@ -1,13 +1,26 @@
 
 public class Tree extends Node{
 
-	Node root;
-	int count=0;
+	Node root,temp=null;
+	int count=0,size=0;
 	Tree()
 	{
 		this.root=null;
 	}
 
+	//Calculate size of tree
+	int size(Node root)
+	{
+		if(root == null)
+			return 0;
+		else
+		{
+			this.size= this.size+ 1;
+			size(root.left);
+			size(root.right);
+		}
+		return this.size;
+	}
 	//Insert node in a tree
 	void insertTree(Node root,Node ob)
 	{
@@ -96,7 +109,7 @@ public class Tree extends Node{
 			return;
 		mirrorTree(root.left);
 		mirrorTree(root.right);
-		
+
 		Node temp;
 		temp = root.left;
 		root.left = root.right;
@@ -157,15 +170,15 @@ public class Tree extends Node{
 	//CONSTRUCT BALANCED MAX HEAP
 	void maxHeap(Node node1,Node root)
 	{ int item;
-	
+
 	//For the first node
 	if(this.root == null)
 	{ 
-	root = node1;
-	root.left=null;
-	root.right = null;
-	root.parent=null;
-	this.root = node1;
+		root = node1;
+		root.left=null;
+		root.right = null;
+		root.parent=null;
+		this.root = node1;
 	}
 	else
 	{
@@ -183,7 +196,7 @@ public class Tree extends Node{
 				maxHeap(node1,root.right);
 			else //TO KEEP MOVING FORWARD
 				if(count == 0)
-				//Keep toggling between left and right in order to move forward one level
+					//Keep toggling between left and right in order to move forward one level
 				{maxHeap(node1,root.left);this.count=1;}
 				else
 				{maxHeap(node1,root.right);this.count=0;}
@@ -199,19 +212,21 @@ public class Tree extends Node{
 		}
 	}
 	}
-	
+
+
 	// CONSTRUCT BALANCED MINHEAP
-		void minHeap(Node node1,Node root)
-		{ int item;
-		
+	void minHeap(Node node1,Node root)
+	{
+		int item;
+
 		//For the first node
 		if(this.root == null)
 		{ 
-		root = node1;
-		root.left=null;
-		root.right = null;
-		root.parent=null;
-		this.root = node1;
+			root = node1;
+			root.left=null;
+			root.right = null;
+			root.parent=null;
+			this.root = node1;
 		}
 		else
 		{
@@ -229,7 +244,7 @@ public class Tree extends Node{
 					minHeap(node1,root.right);
 				else //TO KEEP MOVING FORWARD
 					if(count == 0)
-					//Keep toggling between left and right in order to move forward
+						//Keep toggling between left and right in order to move forward
 					{minHeap(node1,root.left);this.count=1;}
 					else
 					{minHeap(node1,root.right);this.count=0;}
@@ -244,10 +259,94 @@ public class Tree extends Node{
 
 			}
 		}
+	}
+
+	//To find the last node for replacement
+	void getunbalanced(Node root)
+	{
+
+		this.size=0;
+		int totalLeft = (int)Math.pow((double)2, (double)this.height(root,0)) /2;
+		int totalPrevLevel = (int)Math.pow((double)2, (double)this.height(root,0)-1)-1;
+		//Mark to decide whether to go left or right
+		int  mark = totalLeft + totalPrevLevel; 
+		//Size of the tree
+		int tempsize = this.size(root);
+		//To decide whether to go left or right
+		if(tempsize < mark)
+		{	//Go to the left
+			if(root.left!= null)
+			{
+				getunbalanced(root.left);
+				if(root.right == null)
+				{
+					if(this.temp==null)
+						this.temp=root.left;
+				}
+				else
+				{   if(this.temp==null)
+						this.temp=root.right;
+				}
+			}
+
+		}
+		else
+		{
+			if(root.right != null)
+			{	//Go the right
+				getunbalanced(root.right);
+				if(root.right == null)
+				{
+					if(this.temp==null)
+						this.temp=root.left; 
+				}
+				else
+				{
+					if(this.temp==null)
+						this.temp=root.right;
+				}
+			}
 		}
 		
-	
+	}
+
+	//Adjust the heap in order to maintain max-heap property
+	void heapify(Node root)
+	{int temp;
+		if(root == null)
+			return;
+		else //If left node is the next maximum element in the tree
+		if( (root.left!=null) && (root.left.item > root.item) && (root.left.item > root.right.item))
+		{
+			temp=root.left.item;
+			root.left.item=root.item;
+			root.item = temp; 
+			heapify(root.left);
+		} //If right node is the next maximum element in the tree
+		else if( (root.right!=null) && (root.right.item > root.item) && (root.right.item > root.left.item))
+		{
+			temp=root.right.item;
+			root.right.item=root.item;
+			root.item = temp; 
+			heapify(root.right);
+		}
 		
+	}
+	
+	//Delete the top node from the heap
+	void deleteFromHeap(Node root)
+	{
+		this.getunbalanced(root);
+		
+		root.item = this.temp.item;
+		if(this.temp == this.temp.parent.left)
+			this.temp.parent.left = null;
+		else
+			this.temp.parent.right = null;
+		//Call heapify to adjust the heap
+		heapify(root);
+		
+	}
 	public static void main(String args[])
 	{
 		Node ob= new Node (60);
@@ -293,41 +392,47 @@ public class Tree extends Node{
 		System.out.println("\nTree root:"+obj.root);
 		System.out.println("===========================================================");
 		Tree testTree=new Tree();
-		 		Node t1= new Node(50);
-		 		Node t2=new Node(10);
-		 		Node t3=new Node(60);
-		 		Node t4=new Node(80);
-		 		Node t5=new Node(5);
-		 		Node t6= new Node(9);
-		 		Node t7=new Node(90);
-		 		Node t8 = new Node(55);
-		 		Node t9=new Node(54);
-		 		Node t10 = new Node(34);
-		 		Node t11=new Node(4);
-		 		Node t12 = new Node(30);
-		 		Node t13=new Node(45);
-		 		Node t14 = new Node(33);
-		 		Node t15=new Node(22);
-		 		Node t16 = new Node(99);
-		 		testTree.maxHeap(t1, testTree.root);
-		 		testTree.maxHeap(t2, testTree.root);
-		 		testTree.maxHeap(t3, testTree.root);
-		 		testTree.maxHeap(t4, testTree.root);
-		 		testTree.maxHeap(t5, testTree.root);
-		 		testTree.maxHeap(t6, testTree.root);
-		 		testTree.maxHeap(t7, testTree.root);
-		 		testTree.maxHeap(t8, testTree.root);
-		 		testTree.maxHeap(t9, testTree.root);
-		 		testTree.maxHeap(t10, testTree.root);
-		 		testTree.maxHeap(t11, testTree.root);
-		 		testTree.maxHeap(t12, testTree.root);
-		 		testTree.maxHeap(t13, testTree.root);
-		 		testTree.maxHeap(t14, testTree.root);
-		 	testTree.maxHeap(t15, testTree.root);
-		 		testTree.maxHeap(t16, testTree.root);
-		 		//NOT A BALANCED MAX HEAP
-		 		testTree.inorder(testTree.root);
-	
+		Node t1= new Node(50);
+		Node t2=new Node(10);
+		Node t3=new Node(60);
+		Node t4=new Node(80);
+		Node t5=new Node(5);
+		Node t6= new Node(9);
+		Node t7=new Node(90);
+		Node t8 = new Node(55);
+		Node t9=new Node(54);
+		Node t10 = new Node(34);
+		Node t11=new Node(4);
+		Node t12 = new Node(30);
+		Node t13=new Node(45);
+		Node t14 = new Node(33);
+		Node t15=new Node(22);
+		Node t16 = new Node(99);
+		Node t17 = new Node(3);
+		testTree.maxHeap(t1, testTree.root);
+		testTree.maxHeap(t2, testTree.root);
+		testTree.maxHeap(t3, testTree.root);
+		testTree.maxHeap(t4, testTree.root);
+		testTree.maxHeap(t5, testTree.root);
+		testTree.maxHeap(t6, testTree.root);
+		testTree.maxHeap(t7, testTree.root);
+		testTree.maxHeap(t8, testTree.root);
+		testTree.maxHeap(t9, testTree.root);
+		testTree.maxHeap(t10, testTree.root);
+		testTree.maxHeap(t11, testTree.root);
+		testTree.maxHeap(t12, testTree.root);
+		testTree.maxHeap(t13, testTree.root);
+		testTree.maxHeap(t14, testTree.root);
+		testTree.maxHeap(t15, testTree.root);
+		testTree.maxHeap(t16, testTree.root);
+		testTree.maxHeap(t17, testTree.root);
+		//NOT A BALANCED MAX HEAP
+		testTree.inorder(testTree.root);
+		System.out.println("After deleting");
+		//Deleting top node
+		testTree.deleteFromHeap(testTree.root);
+		testTree.deleteFromHeap(testTree.root);
+		testTree.inorder(testTree.root);
 	}
 
 }
