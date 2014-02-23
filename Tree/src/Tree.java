@@ -2,11 +2,61 @@
 public class Tree extends Node{
 
 	Node root,temp=null;
+
 	int count=0,size=0;
+
+	//For the purpose of inorder traversal without recursion
+	Stack ob=new Stack();
+
 	Tree()
 	{
 		this.root=null;
 	}
+
+	//Inorder traversal without recursion
+	void inorderTraversal(Node root)
+	{
+		Node current=root; //To keep track of the current node
+		int flag=0;
+		//Initially pushing the root onto the stack
+		this.ob.push(this.root);
+		//if(this.root.left != null)
+		current = this.root;
+		
+		//Till stack is empty
+		while(!this.ob.isEmpty())
+		{
+			//Push into the stack till we meet leaf node
+			while(current.left!=null)
+			{   
+				current=current.left;
+				this.ob.push(current);
+
+			}
+			
+			//Pop the item and print the leftmost
+			current = this.ob.pop();
+			System.out.println(current.item);
+			
+			//If reached leaf node  set current to the next node in the stack
+			if(current.left == null && current.right == null)
+			{   
+				current=this.ob.pop();
+				System.out.println(current.item);
+			}
+			
+			//Set the current to right and push it onto the stack
+			if(current.right != null)
+			{
+				current=current.right;
+				this.ob.push(current);	
+			}
+		}
+		
+	}
+
+
+
 
 	//Calculate size of tree
 	int size(Node root)
@@ -94,6 +144,8 @@ public class Tree extends Node{
 		root=null;
 	}
 
+	//To find height of the tree
+
 	int height(Node root,int height)
 	{
 		if(root == null)
@@ -103,6 +155,7 @@ public class Tree extends Node{
 
 	}
 
+	//To create a mirror tree
 	void mirrorTree(Node root)
 	{
 		if(root == null)
@@ -115,6 +168,7 @@ public class Tree extends Node{
 		root.left = root.right;
 		root.right = temp;
 	}
+
 	//FIND COMMON ANCESTOR
 	Node findLowestCommonAncestor(Node root,Node node1, Node node2)
 	{  //GO TO THE LEFT
@@ -126,6 +180,7 @@ public class Tree extends Node{
 			else //ELSE RETURN
 				return root;
 	}
+
 
 	//FIND INORDER SUCCESSOR
 	void findInorderSuccessor(Node root)
@@ -285,7 +340,7 @@ public class Tree extends Node{
 				}
 				else
 				{   if(this.temp==null)
-						this.temp=root.right;
+					this.temp=root.right;
 				}
 			}
 
@@ -307,15 +362,15 @@ public class Tree extends Node{
 				}
 			}
 		}
-		
+
 	}
 
 	//Adjust the heap in order to maintain max-heap property
 	void heapify(Node root)
 	{int temp;
-		if(root == null)
-			return;
-		else //If left node is the next maximum element in the tree
+	if(root == null)
+		return;
+	else //If left node is the next maximum element in the tree
 		if( (root.left!=null) && (root.left.item > root.item) && (root.left.item > root.right.item))
 		{
 			temp=root.left.item;
@@ -330,14 +385,14 @@ public class Tree extends Node{
 			root.item = temp; 
 			heapify(root.right);
 		}
-		
+
 	}
-	
+
 	//Delete the top node from the heap
 	void deleteFromHeap(Node root)
 	{
 		this.getunbalanced(root);
-		
+
 		root.item = this.temp.item;
 		if(this.temp == this.temp.parent.left)
 			this.temp.parent.left = null;
@@ -345,7 +400,7 @@ public class Tree extends Node{
 			this.temp.parent.right = null;
 		//Call heapify to adjust the heap
 		heapify(root);
-		
+
 	}
 	public static void main(String args[])
 	{
@@ -362,13 +417,15 @@ public class Tree extends Node{
 		Node ob10=new Node(40);
 		Node ob11 =new Node(45);
 		Node ob12=new Node(56);
+		Node ob13=new Node(38);
 		Tree obj=new Tree();
+		//Inserting in the tree
 		obj.insertTree(obj.root, ob);
 		obj.insertTree(obj.root, ob1);
 		obj.insertTree(obj.root, ob2);
 		obj.insertTree(obj.root, ob3);
 		obj.insertTree(obj.root, ob4);
-		obj.insertTree(obj.root, ob5);
+		obj.insertTree(obj.root, ob5); 
 		obj.insertTree(obj.root, ob6);
 		obj.insertTree(obj.root, ob7);
 		obj.insertTree(obj.root, ob8);
@@ -376,63 +433,10 @@ public class Tree extends Node{
 		obj.insertTree(obj.root, ob10);
 		obj.insertTree(obj.root, ob11);
 		obj.insertTree(obj.root, ob12);
-		System.out.println("Pre order Traversal :");
-		obj.preorder(obj.root);
-		System.out.println("Post order Traversal :");
-		obj.postorder(obj.root);
-		System.out.println("In order Traversal :");
+		obj.insertTree(obj.root, ob13);
 		obj.inorder(obj.root);
-		System.out.println("Height of tree: "+ obj.height(obj.root,0));
-		obj.findInorderSuccessor(ob12);
-		Node temp = obj.findLowestCommonAncestor(obj.root, ob10,ob12 );
-		System.out.println("ANCESTOR = "+ temp.item);
-		obj.mirrorTree(obj.root);
-		obj.inorder(obj.root);
-		obj.delete(obj.root);
-		System.out.println("\nTree root:"+obj.root);
-		System.out.println("===========================================================");
-		Tree testTree=new Tree();
-		Node t1= new Node(50);
-		Node t2=new Node(10);
-		Node t3=new Node(60);
-		Node t4=new Node(80);
-		Node t5=new Node(5);
-		Node t6= new Node(9);
-		Node t7=new Node(90);
-		Node t8 = new Node(55);
-		Node t9=new Node(54);
-		Node t10 = new Node(34);
-		Node t11=new Node(4);
-		Node t12 = new Node(30);
-		Node t13=new Node(45);
-		Node t14 = new Node(33);
-		Node t15=new Node(22);
-		Node t16 = new Node(99);
-		Node t17 = new Node(3);
-		testTree.maxHeap(t1, testTree.root);
-		testTree.maxHeap(t2, testTree.root);
-		testTree.maxHeap(t3, testTree.root);
-		testTree.maxHeap(t4, testTree.root);
-		testTree.maxHeap(t5, testTree.root);
-		testTree.maxHeap(t6, testTree.root);
-		testTree.maxHeap(t7, testTree.root);
-		testTree.maxHeap(t8, testTree.root);
-		testTree.maxHeap(t9, testTree.root);
-		testTree.maxHeap(t10, testTree.root);
-		testTree.maxHeap(t11, testTree.root);
-		testTree.maxHeap(t12, testTree.root);
-		testTree.maxHeap(t13, testTree.root);
-		testTree.maxHeap(t14, testTree.root);
-		testTree.maxHeap(t15, testTree.root);
-		testTree.maxHeap(t16, testTree.root);
-		testTree.maxHeap(t17, testTree.root);
-		//NOT A BALANCED MAX HEAP
-		testTree.inorder(testTree.root);
-		System.out.println("After deleting");
-		//Deleting top node
-		testTree.deleteFromHeap(testTree.root);
-		testTree.deleteFromHeap(testTree.root);
-		testTree.inorder(testTree.root);
+		System.out.println("INORDER :");
+		obj.inorderTraversal(obj.root);
 	}
 
 }
