@@ -1,0 +1,40 @@
+Mixing static and non static synchronized method - Java mistake 2
+
+ 
+Using static and non static synchronized method for protecting shared resource is another Java mistake we are going to discuss in this part of  our series “learning from mistakes in Java”. In last article we have seen why double and float should not be used for monetary calculation , In this tutorial we will find out why using static and non static synchronized method together for protecting same shared resource is not advisable.
+
+I have seen some times Java  programmer mix static synchronized method and instance synchronized method to protect same shared resource. They either don't know or failed to realize that static synchronized and non static synchronized method lock on two different object which breaks purpose of synchronizing shared resource as two thread can concurrently execute these two method breaking mutual exclusive access, which can corrupt status of mutable object or even cause subtle race condition in Java or even more horrible deadlock in java. 
+
+
+Static and non static synchronized method Java
+
+static and non static synchronized method in javaFor those who are not familiar static synchronized method locked on class object e.g. for string class its String.class while instance synchronized method locks on current instance of Object denoted by “this” keyword in Java. Since both of these object are different they have different lock so while one thread is executing static synchronized method , other thread in java doesn’t need to wait for that thread to return instead it will acquire separate lock denoted byte .class literal and enter into static synchronized method. This is even a popular multi-threading interview questions where interviewer asked on which lock a particular method gets locked, some time also appear in Java test papers.
+
+Bottom line is that  never mix static and non static synchronized method for protecting same resource.
+
+
+Example of Mixing instance and static synchronized methods
+
+Here is an example of multithreading code which is using static and non static synchronized method to protect same shared resource:
+
+public class SynchornizationMistakes {
+    private static int count = 0;
+  
+    //locking on this object lock
+    public synchronized int getCount(){
+        return count;
+    }
+  
+    //locking on .class object lock
+    public static synchronized void increment(){
+        count++;
+    }
+    
+}
+
+here shared count is not accessed in mutual exclusive fashion which may result in passing incorrect count to caller of getCount() while another thread is incrementing count using static increment() method.
+
+That’s all on this part of learning from mistakes in Java. Now we know that static and non static synchronized method are locked on different locks and should not be used to protect same shared object.
+
+
+Read more: http://javarevisited.blogspot.com/2012/03/mixing-static-and-non-static.html#ixzz2uNAZ7p8o
