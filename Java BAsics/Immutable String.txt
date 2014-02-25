@@ -1,0 +1,27 @@
+Why String is immutable or final in Java
+
+ 
+This is one of the most popular String Interview questions in Java, which starts with discussion of,  What is String, How String in Java is different than String in C and C++, and then shifted towards what is immutable object in Java , what are the benefits of immutable object , why do you use it and which scenarios do you use it. This is some time also asked as "Why String is final in Java" . Though there could be many possible answer for this question, and only designer of String class can answer this , I think below two does make sense
+
+1) Imagine StringPool facility without making string immutable , its not possible at all because in case of string pool one string object/literal e.g. "Test" has referenced by many reference variables , so if any one of them change the value others will be automatically gets affected i.e. lets say
+
+String A = "Test"
+String B = "Test" 
+
+Now String B called "Test".toUpperCase() which change the same object into "TEST" , so A will also be "TEST" which is not desirable.
+
+2)String has been widely used as parameter for many Java classes e.g. for opening network connection, you can pass hostname and port number as string , you can pass database URL as string for opening database connection, you can open any file in Java by passing name of file as argument to File I/O classes.
+
+In case, if String is not immutable, this would lead serious security threat , I mean some one can access to any file for which he has authorization, and then can change the file name either deliberately or accidentally and gain access of those file. Because of immutability, you don't need to worry about those kind of threats. This reason also gel with, Why String is final in Java, by making java.lang.String final, Java designer ensured that no one overrides any behavior of String class.
+
+3)Since String is immutable it can safely shared between many threads ,which is very important for multithreaded programming and to avoid any synchronization issues in Java, Immutability also makes String instance thread-safe in Java, means you don't need to synchronize String operation externally. Another important point to note about String is memory leak caused by SubString, which is not a thread related issues but something to be aware of.
+
+4) Another reason of Why String is immutable in Java is to allow String to cache its hashcode , being immutable String in Java caches its hashcode, and do not calculate every time we call hashcode method of String, which makes it very fast as hashmap key to be used in hashmap in Java.  This one is also suggested by  Jaroslav Sedlacek in comments below. In short because String is immutable, no one can change its contents once created which guarantees hashCode of String to be same on multiple invocation.
+
+5) Another good reason of Why String is immutable in Java suggested by Dan Bergh Johnsson on comments is: The absolutely most important reason that String is immutable is that it is used by the class loading mechanism, and thus have profound and fundamental security aspects. Had String been mutable, a request to load "java.io.Writer" could have been changed to load "mil.vogoon.DiskErasingWriter"
+
+
+Security and String pool being primary reason of making String immutable, I believe there could be some more very convincing reasons as well, Please post those reasons as comments and I will include those on this post. By the way, above reason holds good to answer, another Java interview questions "Why String is final in Java".  Also to be immutable you have to be final, so that your subclass doesn't break immutability.  what do you guys think ?
+
+
+Read more: http://javarevisited.blogspot.com/2010/10/why-string-is-immutable-in-java.html#ixzz2uN8QxH83
