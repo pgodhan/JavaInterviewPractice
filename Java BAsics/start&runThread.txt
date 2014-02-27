@@ -1,0 +1,49 @@
+Difference between start and run in Java Thread
+
+start vs run method in Java with ExampleSo what is difference between start and run method? Main difference is that when program calls start() method a new Thread is created and code inside run() method is executed in new Thread while if you call run() method directly no new Thread is created and code inside run() will execute on current Thread. Most of the time calling run() is bug or programming mistake because caller has intention of calling start() to create new thread and this error can be detect by many static code coverage tools like findbugs. If you want to perform time consuming task than always call start() method otherwise your main thread will stuck while performing time consuming task if you call run() method directly. Another difference between start vs run in Java thread is that you can not call start() method twice on thread object. once started, second call of start() will throw IllegalStateException in Java while you can call run() method twice.
+
+
+Code Example of start vs run method
+
+Here is a simple code example which prints name of Thread which executes run() method of Runnable task. Its clear that if you call start() method a new Thread executes Runnable task while if you directly call run() method task, current thread which is main in this case will execute the task.
+
+public class StartVsRunCall{
+
+    public static void main(String args[]) {
+        
+        //creating two threads for start and run method call
+        Thread startThread = new Thread(new Task("start"));
+        Thread runThread = new Thread(new Task("run"));
+        
+        startThread.start(); //calling start method of Thread - will execute in new Thread
+        runThread.run();  //calling run method of Thread - will execute in current Thread
+
+    }
+
+    /*
+     * Simple Runnable implementation
+     */
+    private static class Task implements Runnable{
+        private String caller;
+        
+        public Task(String caller){
+            this.caller = caller;
+        }
+        
+        @Override
+        public void run() {
+            System.out.println("Caller: "+ caller + " and code on this Thread is executed by : " + Thread.currentThread().getName());
+            
+        }         
+    } 
+}
+
+Output:
+Caller: start and code on this Thread is executed by : Thread-0
+Caller: run and code on this Thread is executed by : main
+
+
+In Summary only difference between start() and run() method in Thread is that start creates new thread while run doesn't create any thread and simply execute in current thread like a normal method call.
+
+
+Read more: http://javarevisited.blogspot.com/2012/03/difference-between-start-and-run-method.html#ixzz2uUmcRJfD
