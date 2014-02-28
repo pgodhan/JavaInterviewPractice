@@ -1,0 +1,25 @@
+
+public class Node {
+int item;
+Node left=null;
+Node right=null;
+
+Node(int item)
+{
+	
+}
+
+
+int getItem(Node obj)
+{
+	return obj.item;
+}
+
+void setItem(Node obj,int item)
+{
+	obj.item = item;
+}
+
+}
+
+

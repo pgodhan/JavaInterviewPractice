@@ -1,6 +1,6 @@
 TREE LIST :
 
-1.Insert in a tree
+1.Insert in a tree      
 2.Delete a tree
 3.Recursive Tree traversal
 4.Height of a tree

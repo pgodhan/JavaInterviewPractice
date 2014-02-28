@@ -1,14 +1,15 @@
 
 public class Node {
 int item;
-Node left,right;
+Node left,right,parent;
 
 Node()
 {
 	
 }
-Node(int item)
+Node(int item )
 {
+
   this.item=item;
   this.left=null;
   this.right=null;

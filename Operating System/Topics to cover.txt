@@ -1,0 +1,36 @@
+1.Semaphore
+2.Locks
+3.Interrupt Service Routine
+4.TLB
+5.Page Fault Handler
+6.Paging
+7.Segmentation
+8.Process Scheduler
+9.Mutex
+10.Monitor
+11.Interrupts
+12.Deadlock Prevention and Avoidance
+13.Reasons of deadlock
+14.Types of kernel
+15.Processes and threads
+16.System call
+17.User mode - kernel mode
+18.Virtual Memory
+19.Context Switching
+20.Compiler,loaders,linkers
+21.Producer-consumer
+22.Reader-Writer
+23.Barrier Implementation
+24.Ticket locking
+25.Dining Philosopher problem
+26.PC is turned on
+27.Signal handlers
+28.Priority Inversion ,Priority Inheritance and Priority Ceiling
+29.Communication with I/O Devices Methods
+30.Device drivers
+31.malloc and free
+32.Garbage collection in java
+33.Just in time compilation in java
+34.Bytecode java- VM
+
+

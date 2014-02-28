@@ -434,9 +434,27 @@ public class Tree extends Node{
 		obj.insertTree(obj.root, ob11);
 		obj.insertTree(obj.root, ob12);
 		obj.insertTree(obj.root, ob13);
-		obj.inorder(obj.root);
-		System.out.println("INORDER :");
-		obj.inorderTraversal(obj.root);
+		//obj.inorder(obj.root);
+		//System.out.println("INORDER :");
+		//obj.inorderTraversal(obj.root);
+		//Testing circular Queue
+		Queue newobj=new Queue();
+		newobj.enqueue(ob1);
+		newobj.enqueue(ob2);
+		newobj.enqueue(ob3);
+		newobj.enqueue(ob4);
+		newobj.enqueue(ob5);
+		newobj.enqueue(ob6);
+		newobj.dequeue();
+		newobj.enqueue(ob6);
+		newobj.enqueue(ob6);
+		newobj.printQueue();
+		newobj.dequeue();
+		newobj.dequeue();
+		newobj.dequeue();
+		newobj.dequeue();
+		newobj.dequeue();
+		newobj.printQueue();
 	}
 
 }

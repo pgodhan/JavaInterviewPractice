@@ -1,0 +1,19 @@
+
+public class Node {
+int item;
+Node next;
+
+
+int getItem(Node obj)
+{
+	return obj.item;
+}
+
+void setItem(Node obj,int item)
+{
+	obj.item = item;
+}
+
+}
+
+

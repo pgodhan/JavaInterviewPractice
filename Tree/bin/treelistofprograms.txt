@@ -1,0 +1,29 @@
+TREE LIST :
+
+1.Insert in a tree      
+2.Delete a tree
+3.Recursive Tree traversal
+4.Height of a tree
+5.Whether Tree is balanced or not
+6.Find Lowest Common Ancestor
+7.Find node with a minimum value in BST
+8.Convert a Binary tree to a Mirror Tree
+9.To find whether two trees are identical or not
+10.Calculate size of a tree
+11.Print all root to leaf tree path
+12.Inorder traversal without recursion
+13.Inorder traversal without recursion or stack
+14.Diameter of a Binary tree
+15.Level order traversal in a binary tree
+16.Inorder successor of a binary tree
+17.Construct min heap
+18.Construct max heap
+19.Heapify
+20.Count leaf nodes in a tree
+21.Is subtree
+22.get level of a node in a binary tree
+23.check if binary tree is sumtree or not
+24.sorted array to balanced BST
+25.Check whether a given binary tree is complete or not
+26.Find a pair with given sum in a BST
+27.Check if all leaves are at same level

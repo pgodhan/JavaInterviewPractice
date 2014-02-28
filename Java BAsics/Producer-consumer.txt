@@ -1,0 +1,45 @@
+  class ProducerConsumer extends Thread
+  {
+  
+  int buffer[N];
+  int N=10;
+  int full=0;
+  int empty=N;
+  int count; //Keep track of the number of items
+  Lock lock = new Lock();
+  
+  synchronized void Producer(int item)
+ {
+   //wait till consumer consumes item when buffer is full
+   while(full == N )
+    wait();
+   
+    lock.lock();
+    buffer[count] = item;
+    count++;
+    lock.unlock();
+     
+   //Signal consumer
+    full = full + 1;
+    empty = empty - 1;
+    notify();
+     
+  }
+ 
+ synchronized void Consumer()
+ {
+   //wait till buffer has atleast one item
+   while(empty==0)
+    wait();
+     
+    lock.lock();
+    item=buffer[count];
+    count--;
+    lock.unlock();
+    
+    full--;
+    empty++;
+    notify();
+ }
+ 
+ }

@@ -1,0 +1,69 @@
+
+public class Tree extends Node{
+  
+   Node root;
+	
+  Tree()
+  {
+	  this.root=null;
+  }
+	
+  Node  insertTree(Node root,Node ob)
+  {
+	  if(root == null)
+		   {root = ob;
+	  	   this.root =ob;
+	  	   return ob;}
+	  else
+	  {
+		  if(root.left == null || root.right == null)
+		  {
+			if(item < root.item)
+				 root.left =ob;
+			else
+				root.right =ob;
+			return ob;
+		  }
+		  else
+		  {
+			  if(item < root.item)
+				  {
+			      root.left= insertTree(root.left,ob);
+			     
+				  }
+			  else
+				  {
+				   root.right=insertTree(root.right,ob);
+				 
+				  }
+			  return null;
+		  }
+		  
+		  
+	  }
+	  
+  } //End of insert tree
+
+void preorder(Node root)
+{
+	if(root == null)
+		return;
+	System.out.println(" "+root.item);
+	preorder(root.left);
+	preorder(root.right);
+}
+
+public static void main(String args[])
+{
+	Node ob=new Node (10);
+	Node ob1=new Node(20);
+	Node ob2=new Node(30);
+	Tree obj=new Tree();
+	obj.insertTree(obj.root, ob);
+	obj.insertTree(obj.root, ob1);
+	obj.insertTree(obj.root, ob2);
+	obj.preorder(obj.root);
+	
+}
+
+}

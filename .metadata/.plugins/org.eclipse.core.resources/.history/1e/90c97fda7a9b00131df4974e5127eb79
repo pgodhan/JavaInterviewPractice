@@ -1,0 +1,11 @@
+
+public class Tree extends Node{
+  Node root;
+	
+  void insertTree(Node ob)
+  {
+	  if(root == null)
+		   root=ob;
+	  
+  }
+}
